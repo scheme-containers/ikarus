@@ -7,8 +7,9 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
       libffi-dev \
       libgmp-dev \
  && rm -rf /var/lib/apt/lists/*
+WORKDIR /build
 RUN bzr checkout --lightweight lp:ikarus
-WORKDIR ikarus
+WORKDIR /build/ikarus
 RUN ./configure
 RUN make
 RUN make install
