@@ -2,14 +2,16 @@
 FROM debian:buster-slim AS build
 RUN apt-get update && apt-get -y --no-install-recommends install \
       build-essential \
-      bzr \
       ca-certificates \
+      git \
       libffi-dev \
       libgmp-dev \
  && rm -rf /var/lib/apt/lists/*
-WORKDIR /build
-RUN bzr checkout --lightweight lp:ikarus
 WORKDIR /build/ikarus
+RUN git init \
+ && git remote add origin https://github.com/lambdaconservatory/ikarus.git \
+ && git fetch origin 1f2b250ed9e8cb1c2466c939a9a305461db71739 --depth 1 --tags \
+ && git reset --hard FETCH_HEAD
 RUN ./configure
 RUN make
 RUN make install
