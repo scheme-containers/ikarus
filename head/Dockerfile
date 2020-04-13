@@ -19,7 +19,6 @@ RUN apt-get update && apt-get -y --no-install-recommends install \
       libffi6 \
       libgmp10 \
  && rm -rf /var/lib/apt/lists/*
-COPY --from=build /usr/local/lib/ikarus/ /usr/local/lib/ikarus/
-COPY --from=build /usr/local/bin/ /usr/local/bin/
+COPY --from=build /usr/local/ /usr/local/
 RUN ln -s ikarus /usr/local/bin/scheme-banner
 CMD ["scheme-banner"]
